@@ -1,0 +1,20 @@
+[env]
+# supports arbitrary env vars so rtx can be used like direnv/dotenv
+
+[tools]
+# specify single or multiple versions
+
+# send arbitrary options to the plugin, passed as:
+# RTX_TOOL_OPTS__VENV=.venv
+# RTX_TOOL_OPTS__DEFAULT_PACKAGES__0=ansible
+# RTX_TOOL_OPTS__DEFAULT_PACKAGES__1=pipenv
+# python = { version = '3.10', venv = '.venv', default_packages = ['ansible', 'pipenv'] }
+python = {version='3.11', virtualenv='.venv'}
+
+[plugins]
+# specify a custom repo url
+# note this will only be used if the plugin does not already exist
+python = 'https://github.com/jdxcode/rtx-python'
+
+[settings] # project-local settings
+verbose = true
