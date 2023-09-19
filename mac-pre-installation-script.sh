@@ -6,12 +6,20 @@
 xcode-select --install
 
 # install homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 brew update && brew upgrade
 
-# instaall ansible
+# install ansible
 brew install ansible
+
+# install python using rtx
+brew install rtx
+rtx --version
+# TODO: catch error / handle exception if rtx not properly installed
+cat << 'EOF'  >> ~/.zshrc
+eval "$(~/bin/rtx activate zsh)"
+EOF
 
 # make python == python3
 alias python='$(whence python3)'
