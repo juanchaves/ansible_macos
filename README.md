@@ -9,16 +9,23 @@ Taken from @greelingguy's repos:
 
 ### Tools
 
-#### Homebrew packages
+#### Homebrew casks & packages
 
-- Terminal: [Warp](https://www.warp.dev/): `brew install --cask warp`
-- [Raycast](https://www.raycast.com/): `brew install --cask raycast`
 - [OrbStack](https://orbstack.dev): `brew install orbstack`
 - Runtime manager: `brew install rtx`
+- Terminal: [Warp](https://www.warp.dev/): `brew install --cask warp`
+- [Raycast](https://www.raycast.com/): `brew install --cask raycast`
 - Install NerdFont for starship: `brew tap homebrew/cask-fonts && brew install font-hack-nerd-font`
+- [Discord](https://): `brew install --cask discord`
+- `brew install snyk`
+- ` brew install pandoc`
+- `brew install --cask basictex`
+- [Zola](https://)`brew install zola`
+
 #### Pypi
 
 - Coding answers: [howdoi](https://pypi.org/project/howdoi/): `pip install howdoi`
+- `pip install --upgrade pandoc` // Needs pandoc installed via brew first.
 
 #### Cargo
 

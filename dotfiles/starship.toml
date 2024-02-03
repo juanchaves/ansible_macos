@@ -1,0 +1,30 @@
+ add_newline = true
+
+ # Replace the '❯' symbol in the prompt with '➜'
+ [character] # The name of the module we are configuring is 'character'
+ success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set   to '➜' with the color 'bold green'
+
+ # Disable the package module, hiding it from the prompt completely
+ [package]
+ disabled = true
+
+ [aws]
+ format = 'on [$symbol($profile )(\($region\) )]($style)'
+ style = 'bold blue'
+ [aws.region_aliases]
+ us-west-2 = 'PDX'
+ us-east-1 = 'IAD'
+ eu-central-1 = 'FRA'
+ eu-west-1 = 'DUB'
+ ap-northeast-1 = 'NRT'
+ ap-northeast-2 = 'ICN'
+ ap-southeast-1 = 'SIN'
+ ap-southeast-2 = 'SYD'
+ [aws.profile_aliases]
+
+ [python]
+ python_binary = 'python3'
+ detect_extensions = ['py']
+ detect_files = ['.python-version', 'Pipfile', '__init__.py', 'pyproject.toml',   'requirements.txt', 'setup.py', 'tox.ini']
+
+ [rust]

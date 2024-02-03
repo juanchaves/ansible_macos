@@ -54,8 +54,9 @@ homebrew_cask_apps:
 
 homebrew_installed_packages:
   # - ansible # Installed via Pip.
+  # Dev Env
   - git
-  - rtx
+  - mise
   - zsh-autocomplete
   - gifsicle
   - gh
@@ -72,6 +73,8 @@ homebrew_installed_packages:
   - wget
   - wrk
   - zsh-history-substring-search
+  # Dev Packages
+  - zola
 
 osx_script: "~/.osx --no-restart"
 
