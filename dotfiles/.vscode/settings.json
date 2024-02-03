@@ -1,0 +1,106 @@
+{
+    "workbench.colorTheme": "Obsidian Dark",
+    "terminal.integrated.sendKeybindingsToShell": true,
+    "files.autoSave": "afterDelay",
+    "[python]": {
+      "editor.formatOnType": true,
+      "editor.formatOnPaste": false,
+      "editor.formatOnSave": true,
+      "editor.formatOnSaveMode": "file",
+      "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+      }
+    },
+    "python.pipenvPath": "${env:HOME}/.local/bin/pipenv",
+    "python.poetryPath": "${env:HOME}/.local/bin/poetry",
+    "python.analysis.typeCheckingMode": "strict",
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestArgs": ["tests"],
+    "explorer.confirmDragAndDrop": false,
+    "aws.telemetry": false,
+    "redhat.telemetry.enabled": false,
+    "vs-kubernetes": {
+      "vscode-kubernetes.helm-path.mac": "/Users/juan/.vs-kubernetes/tools/helm/darwin-amd64/helm",
+      "vscode-kubernetes.minikube-path.mac": "/Users/juan/.vs-kubernetes/tools/minikube/darwin-amd64/minikube",
+      "vscode-kubernetes.kubectl-path.mac": "/Users/juan/.vs-kubernetes/tools/kubectl/kubectl"
+    },
+    "yaml.customTags": [
+      "!And",
+      "!And sequence",
+      "!If",
+      "!If sequence",
+      "!Not",
+      "!Not sequence",
+      "!Equals",
+      "!Equals sequence",
+      "!Or",
+      "!Or sequence",
+      "!FindInMap",
+      "!FindInMap sequence",
+      "!Base64",
+      "!Join",
+      "!Join sequence",
+      "!Cidr",
+      "!Ref",
+      "!Sub",
+      "!Sub sequence",
+      "!GetAtt",
+      "!GetAZs",
+      "!ImportValue",
+      "!ImportValue sequence",
+      "!Select",
+      "!Select sequence",
+      "!Split",
+      "!Split sequence"
+    ],
+    "security.workspace.trust.untrustedFiles": "open",
+    "git.autofetch": true,
+    "snyk.yesWelcomeNotification": false,
+    "snyk.trustedFolders": [
+      "/Users/juan/Library/Mobile Documents/com~apple~CloudDocs/Projects/cloudresumechallenge_aws",
+      "/vscode-vfs:/github/juanchaves/cdk-book",
+      "/Users/juan/Library/Mobile Documents/com~apple~CloudDocs/Projects/learn/cdk_stuff/cdk-book",
+      "/Users/juan/Library/Mobile Documents/com~apple~CloudDocs/Projects/learn/LearnRust",
+      "/Users/juan/Library/Mobile Documents/com~apple~CloudDocs/Projects/ansible_macos",
+      "/Users/juan/Library/Mobile Documents/com~apple~CloudDocs/Projects/learn/python_stuff/leadspotr",
+      "/Users/juan/Library/Mobile Documents/com~apple~CloudDocs/Projects/learn/cdk_stuff",
+      "/Users/juan/Library/Mobile Documents/com~apple~CloudDocs/Projects/chavesjuan"
+    ],
+    "snyk.advanced.cliPath": "/Users/juan/Library/Application Support/snyk-ls/snyk-macos",
+    "editor.minimap.enabled": false,
+    "[jsonc]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "aws.suppressPrompts": {
+      "codeWhispererNewWelcomeMessage": true
+    },
+    "terminal.external.osxExec": "warp.app",
+    "terminal.integrated.fontFamily": "Hack Nerd Font",
+    "editor.fontFamily": "Hack Nerd Font",
+    "ansible.python.interpreterPath": "/Users/juan/Library/Mobile Documents/com~apple~CloudDocs/Projects/ansible_macos/.venv/bin/python",
+    "terminal.integrated.profiles.osx": {
+      "bash": {
+        "path": "bash",
+        "args": ["-l"],
+        "icon": "terminal-bash"
+      },
+      "zsh": {
+        "path": "zsh",
+        "args": ["-l"],
+        "icon": "zap"
+      },
+      "fish": {
+        "path": "fish",
+        "args": ["-l"]
+      },
+      "tmux": {
+        "path": "tmux",
+        "icon": "terminal-tmux"
+      },
+      "pwsh": {
+        "path": "pwsh",
+        "icon": "terminal-powershell"
+      }
+    }
+  }
+  

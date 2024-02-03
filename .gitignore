@@ -11,8 +11,9 @@
 Icon
 
 # VS Code
-.vscode/
+.vscode
 !.vscode/launch.json
+!dotfiles/*
 
 # Thumbnails
 ._*
