@@ -13,12 +13,12 @@ brew update && brew upgrade
 # install ansible
 brew install ansible
 
-# install python using rtx
-brew install rtx
-rtx --version
-# TODO: catch error / handle exception if rtx not properly installed
+# install python using mise (formery rtx): https://github.com/jdx/mise 
+brew install mise
+mise --version
+# TODO: catch error / handle exception if mise not properly installed
 cat << 'EOF'  >> ~/.zshrc
-eval "$(~/bin/rtx activate zsh)"
+eval "$(~/bin/mise activate zsh)"
 EOF
 
 # make python == python3
