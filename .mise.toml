@@ -1,5 +1,10 @@
 [env]
-# supports arbitrary env vars so rtx can be used like direnv/dotenv
+[env._]
+# https://mise.jdx.dev/mise-cookbook/presets.html
+[env._.python]
+[env._.python.venv]
+path = ".venv"
+# create = true
 
 [tools]
 # specify single or multiple versions
@@ -9,12 +14,15 @@
 # RTX_TOOL_OPTS__DEFAULT_PACKAGES__0=ansible
 # RTX_TOOL_OPTS__DEFAULT_PACKAGES__1=pipenv
 # python = { version = '3.10', venv = '.venv', default_packages = ['ansible', 'pipenv'] }
-python = {version='3.11', virtualenv='.venv'}
+python = { version = '3.11', virtualenv = '.venv' }
 
-[plugins]
+[alias]
 # specify a custom repo url
 # note this will only be used if the plugin does not already exist
-python = 'https://github.com/jdxcode/rtx-python'
+python = 'https://github.com/asdf-community/asdf-python'
 
 [settings] # project-local settings
-verbose = true
+verbose = false
+
+#https://mise.jdx.dev/mise-cookbook/python.html
+python.uv_venv_auto = true

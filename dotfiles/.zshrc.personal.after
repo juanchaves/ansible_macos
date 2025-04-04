@@ -1,0 +1,24 @@
+# Most ZSH config e.g. aliases etc goes here
+
+source $HOMEBREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
+GH_NOREPLY_EMAIL="23042224+juanchaves@users.noreply.github.com"
+GIT_USERNAME="Juan Chaves"
+export NVM_DIR=~.nvm
+export PATH=$NVM_DIR:$PATH
+
+# Set Git configuration
+git config --global user.email "$GH_NOREPLY_EMAIL"
+git config --global user.name "$GIT_USERNAME"
+
+
+# Aliases
+alias python='$(whence python3)'
+alias pip='$(whence pip3)'
+
+fpath+=~/.zfunc
+
+# Evals
+eval "$(starship init zsh)"
+eval "$(mise activate zsh)"
+eval "$(mise hook-env)"

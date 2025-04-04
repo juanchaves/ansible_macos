@@ -1,0 +1,347 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Make sure homebrew bin is in path
+      ansible.builtin.lineinfile:
+        path: /etc/paths
+        state: present
+        line: "/opt/homebrew/bin"
+      become: true
+      become_user: root
+
+    - name: Add custom homebrew repos
+      community.general.homebrew_tap:
+        # geerlingguy.mac.homebrew_taps:
+        name: [
+            # homebrew/core,
+            # homebrew/cask,
+            homebrew/cask-fonts,
+            homebrew/cask-versions,
+            # homebrew/httpie, # https://github.com/Homebrew/brew/issues/15854
+            # homebrew/ollama,
+            snyk/tap,
+          ]
+
+    - name: Add TigerBeetle
+      community.general.homebrew_tap:
+        name: tigerbeetle/tigerbeetle
+        url: https://github.com/tigerbeetle/tigerbeetle
+
+    - name: Install core packages via brew casks
+      community.general.homebrew_cask:
+        name: "{{ item }}"
+        greedy: true
+        install_options: "appdir=/Applications"
+      with_items:
+        - appflowy
+        - basictex
+        - chromedriver
+        - datagrip
+        - discord
+        - dropbox
+        - duckduckgo
+        - figma
+        - firefox
+        - font-hack-nerd-font
+        - gitbutler
+        - google-chrome
+        - google-cloud-sdk
+        - httpie
+        - iterm2
+        - itsycal
+        - licecap
+        - ngrok
+        - obsidian
+        - orbstack
+        - raycast
+        - sequel-ace
+        - signal
+        - slack
+        - telegram
+        - transmit
+        - visual-studio-code
+        - vlc
+        - warp
+        - whatsapp
+        - zed
+        - zoom
+
+    - name: Install homebrew packages
+    # To get a list of all installed packages, run 
+    # `brew list --formula | awk '{for(i=1;i<=NF;i++) if($i!="") printf "\"%s\",\n", $i}' | sort`
+      community.general.homebrew:
+        name: [
+          "autoconf",
+          "automake",
+          "aws-cdk",
+          "aws-iam-authenticator",
+          "aws-sam-cli",
+          "awscli",
+          "bash",
+          "berkeley-db",
+          "brotli",
+          "c-ares",
+          "ca-certificates",
+          "cabal-install",
+          "certifi",
+          "cffi",
+          "cmake",
+          "coreutils",
+          "cryptography",
+          "curl",
+          "direnv",
+          "dnsmasq",
+          "expat",
+          "fd",
+          "fzf",
+          "gdbm",
+          "gettext",
+          "gh",
+          "ghc",
+          "gifsicle",
+          "gmp",
+          "go",
+          "helm",
+          "howdoi",
+          "htop",
+          "httpie",
+          "icu4c",
+          "iperf",
+          "jc",
+          "jo",
+          "kubectx",
+          "kubernetes-cli",
+          "ldns",
+          "libcbor",
+          "libevent",
+          "libfido2",
+          "libgcrypt",
+          "libgit2",
+          "libgpg-error",
+          "libidn2",
+          "liblinear",
+          "libnghttp2",
+          "libsodium",
+          "libssh",
+          "libssh2",
+          "libtool",
+          "libunistring",
+          "libuv",
+          "libvterm",
+          "libxml2",
+          "libxslt",
+          "libyaml",
+          "llvm",
+          "lpeg",
+          "lua",
+          "luajit",
+          "luv",
+          "lz4",
+          "lzip",
+          "m4",
+          "mas",
+          "maturin",
+          "minica",
+          "mise",
+          "mpdecimal",
+          "msgpack",
+          "mypy",
+          "ncurses",
+          "neovim",
+          "ninja",
+          "nmap",
+          "node",
+          "nvm",
+          "ollama",
+          "oniguruma",
+          "openssh",
+          "openssl",
+          "pandoc",
+          "pcre",
+          "pcre2",
+          "perl",
+          "pkgconf",
+          "pre-commit",
+          "pv",
+          "pycparser",
+          "python-certifi",
+          "python-cryptography",
+          "python-setuptools",
+          "python@3.11",
+          "python@3.12",
+          "python@3.13",
+          "readline",
+          "redis",
+          "rtmpdump",
+          "ruby",
+          "ruff",
+          "ruff-lsp",
+          "rust",
+          "rustup",
+          "rustup-init",
+          "snyk",
+          "sphinx-doc",
+          "sqlite",
+          "ssh-copy-id",
+          "starship",
+          "swig",
+          "thefuck",
+          "tmux",
+          "tree-sitter",
+          "unibilium",
+          "unzip",
+          "usage",
+          "utf8proc",
+          "uv",
+          "vim",
+          "wget",
+          "wrk",
+          "xz",
+          "yarn",
+          "yq",
+          "z3",
+          "zlib",
+          "zola",
+          "zoxide",
+          "zsh",
+          "zsh-autocomplete",
+          "zsh-history-substring-search",
+          "zstd",
+          ]
+        state: present
+        update_homebrew: true
+        upgrade_all: true
+
+    - name: Install from Mac app store
+      shell: mas install {{ item }}
+      with_items:
+        - 414781829 # Keeper
+        - 1147396723 # WhatsApp
+        - 302584613 # Kindle
+        - 1102494854 # System Designer
+        - 866773894 # Quiver
+        - 1438243180 # Dark Reader for Safari
+
+    - name: Get the path to ZSH
+      become: false
+      local_action: command which zsh
+      register: zsh_path
+
+    - name: Ensure homebrew zsh is in allowed shells
+      lineinfile:
+        path: /etc/shells
+        line: "{{ zsh_path.stdout }}"
+      become: true
+
+    - name: Set ZSH as the default shell
+      shell: chsh -s $(which zsh) {{ lookup('env', 'USER') }}
+      become: true
+
+    - name: Create dotfiles
+      ansible.builtin.copy:
+        src: dotfiles/
+        dest: /Users/{{ lookup('env', 'USER') }}/dotfiles/
+        owner: "{{ lookup('env', 'USER') }}"
+
+    - name: Modify .osx scipt
+      ansible.builtin.file:
+        path: /Users/{{ lookup('env', 'USER') }}/dotfiles/.osx
+        owner: "{{ lookup('env', 'USER') }}"
+        mode: u+rwx,g+rwx,o+rwx
+
+    - name: Create a default ZSH configuration
+      template:
+        src: templates/.zshrc.j2
+        dest: /Users/{{ lookup('env', 'USER') }}/.zshrc
+        owner: "{{ lookup('env', 'USER') }}"
+        force: yes
+
+    - name: OSX Configuration
+      command: /Users/{{ lookup('env', 'USER') }}/dotfiles/.osx --no-restart
+      become: false
+
+    - name: Create VS Code directory if it does not exist
+      ansible.builtin.file:
+        path: /Users/{{ lookup('env', 'USER') }}/Library/Application\ Support/Code/User/
+        state: directory
+        owner: "{{ lookup('env', 'USER') }}"
+
+    - name: Create a default VSCode configuration
+      template:
+        src: templates/vscode-settings.json.j2
+        dest: /Users/{{ lookup('env', 'USER') }}/Library/Application\ Support/Code/User/settings.json
+        owner: "{{ lookup('env', 'USER') }}"
+        force: yes
+
+    - name: Create user VSCode configuration
+      template:
+        src: templates/vscode-settings.json.j2
+        dest: /Users/{{ lookup('env', 'USER') }}/Library/Application\ Support/Code/User/settings.json
+        owner: "{{ lookup('env', 'USER') }}"
+        force: yes
+
+    # Add something which ensures path is set here
+    - name: Install VSCode extensions
+      shell: code --install-extension {{ item }}
+      with_items:
+        - VisualStudioExptTeam.vscodeintellicode
+        - ms-azuretools.vscode-docker
+        - ms-dotnettools.dotnet-interactive-vscode
+        - ms-vscode-remote.remote-containers
+        - ms-vscode-remote.vscode-remote-extensionpack
+        - ms-vscode.vscode-typescript-tslint-plugin
+        - GitHub.copilot
+        - GitHub.vscode-github-actions
+        - eamodio.gitlens
+        - formulahendry.code-runner
+        - wholroyd.jinja
+        - christian-kohler.path-intellisense
+        - rust-lang.rust-analyzer
+        - serayuzgur.crates
+        - tamasfe.even-better-toml
+        - vadimcn.vscode-lldb
+        - charliermarsh.ruff
+        - KevinRose.vsc-python-indent
+        - njpwerner.autodocstring
+        - oderwat.indent-rainbow
+        - AmazonWebServices.aws-toolkit-vscode
+        - dannysteenman.cdk-snippets
+        - sameeramin.cdk-snippets-for-python
+        - Boto3typed.boto3-ide
+        - mark-tucker.aws-cli-configure
+        - redhat.vscode-yaml
+        - mechatroner.rainbow-csv
+        - yzhang.markdown-all-in-one
+        - bierner.markdown-mermaid
+        - bierner.markdown-emoji
+        - streetsidesoftware.code-spell-checker
+
+    # - name: Install Default Rust
+    #   shell: |
+    #     rustup-init
+    #     expect "Proceed with standard installation"
+    #     send 1
+    #     rustup completions zsh > ~/.zfunc/_rustup
+
+    - name: Install (Node, Python)
+      shell: |
+        mise use --global {{ item }}
+      with_items:
+        - python
+        - node
+
+    - name: Install node packages
+      shell: node global add {{ item }}
+      with_items:
+        - bun
+        - cdk
+
+    - name: re-generate bins now we've installed some packages
+      shell: |
+        eval "$(mise activate zsh)"
+        eval "$(mise hook-env -s zsh)"
+
+    - name: Update brew && Upgrade All
+      community.general.homebrew:
+        update_homebrew: true
+        upgrade_all: true
